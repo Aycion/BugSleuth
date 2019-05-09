@@ -1,6 +1,7 @@
 const Router = require('express').Router
 /** @type {import 'fs'} */
-const fs = Promise.promisifyAll(require('fs'))	/* global promises = bluebird promises */
+/* global promises = bluebird promises */
+const fs = require('bluebird').promisifyAll(require('fs'))	
 const path = require('path')
 
 const bootstrap = 'bootstrap.js'	/* Name of the bootstrap script file */
@@ -25,11 +26,12 @@ module.exports = exports = function createRoutes(config) {
 	
 	routes.get('/scripts/bootstrap', async (req, res, next) => {
 		// TODO: Auth logic, build script from template
-		res.sendFile(path.join(assetDir, bootstrap))
+		res.sendFile(path.join(assetDir, bootstrap), next)
 	})
 
-	routes.get('/scripts/widget', (req, res) => {
-	
+	routes.get('/scripts/widget', (req, res, next) => {
+		console.log(path.join(assetDir, widget))
+		return res.sendFile(path.join(assetDir, widget), next)
 	})
 
 	return routes

@@ -1,19 +1,21 @@
-##
-# build.sh
-#
-# Builds the frontend and backend and puts them in the dist/ folder.
-#
-# Author: Donald Isaac
-#
+################################################################################
+# 									 build.sh								   #
+#																			   #
+# Builds the frontend and backend and puts them in the dist/ folder.		   #
+#																			   #
+# Author: Donald Isaac														   #
+# Licensed under the MIT License											   #
+#																			   #
+################################################################################
 
-working_directory=$(pwd)					# Root directory
+root_dir=$(pwd)								# Project's root directory
 is_prod=true								# Build in production mode?
 
 
 
 #### FRONTEND BUILD ####
 echo "Building frontend..."
-cd ${working_directory}/packages/frontend	# Move to the frontend directory
+cd ${root_dir}/packages/frontend			# Move to the frontend directory
 
 if [ -e dist/ ] ; then
 	rm -rf dist/
@@ -29,7 +31,7 @@ fi
 
 #### BACKEND BUILD ####
 echo "Building backend..."
-cd ${working_directory}/packages/backend	# Move to the backend directory
+cd ${root_dir}/packages/backend				# Move to the backend directory
 
 if [ -e dist/ ] ; then
 	rm -rf dist/
@@ -43,21 +45,35 @@ fi
 
 
 
-#### MOVE ASSETS TO DIST ####
-cd $working_directory
-if [ -f -e dist/ ] ; then					# Remove the old dist folder
-	rm -rf dist/
+################################# DIST FOLDER ##################################
+# The dist/ folder has the following file structure:						   #
+#																			   #
+# dist/																		   #
+# |																			   #
+# ├── server.js								# Compiled backend script		   #
+# ├── package.json							# Dependencies for server.js	   #
+# ├── package-lock.json														   #
+# ├── node_modules/															   #
+# └── assets								# Assets that the backend serves   #
+# |   └── bugsleuth.js						# Widget UI script				   #
+#																			   #
+################################################################################
+
+cd $root_dir
+if [ -f -e dist ] ; then					# Remove the old dist folder
+	rm -rf dist
 fi
 
 mkdir -p dist/assets						# Remake the dist folder
-cp packages/frontend/dist/bugsleuth.js \	# Move the built widget to the 
-	dist/assets/							# dist/assets folder
-cp packages/backend/dist/server.js \
-	dist/
-cp packages/backend/package.json \
-	dist/
+cp packages/frontend/dist/bugsleuth.js dist/assets/	# Move the built widget to the 
+								# dist/assets folder
+
+cp packages/backend/dist/server.js dist/		# Add server.js to dist
+	
+cp packages/backend/package.json dist/			# Add package.json to dist
+
 
 echo "Installing..."
-cd ${working_directory}/dist
-
-npm install
+cd ${root_dir}/dist				
+npm install									# Install dependencies and
+											# create package-lock.json
