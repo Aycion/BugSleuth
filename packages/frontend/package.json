@@ -1,0 +1,43 @@
+{
+  "name": "@bugsleuth/frontend",
+  "version": "1.0.0",
+  "description": "BugSleuth's widget UI",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonIsaac/BugSleuth.git"
+  },
+  "keywords": [
+    "preact",
+    "typescript",
+    "widget",
+    "ui",
+    "bugsleuth"
+  ],
+  "author": "Donald Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DonIsaac/BugSleuth/issues"
+  },
+  "homepage": "https://github.com/DonIsaac/BugSleuth#readme",
+  "dependencies": {
+    "preact": "^8.4.2",
+    "ulog": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.0",
+    "css-loader": "^2.1.1",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.0",
+    "tslint": "^5.16.0",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.4.5",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.2"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@bugsleuth/backend",
+  "version": "1.0.0",
+  "description": "Server for managing the BugSleuth widget UI",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonIsaac/BugSleuth.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "bugsleuth",
+    "backend",
+    "rest",
+    "api"
+  ],
+  "author": "Donald Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DonIsaac/BugSleuth/issues"
+  },
+  "homepage": "https://github.com/DonIsaac/BugSleuth#readme",
+  "dependencies": {
+    "bluebird": "^3.5.4",
+    "compression": "^1.7.4",
+    "express": "^4.16.4",
+    "helmet": "^3.18.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
