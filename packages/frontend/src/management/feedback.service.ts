@@ -1,5 +1,5 @@
 import { PublisherComponent } from './registry';
-import { Adapter } from '../adapters/adapter';
+import { Adapter } from '../services/adapters/adapter';
 
 export class FeedbackService extends PublisherComponent {
 

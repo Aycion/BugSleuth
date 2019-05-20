@@ -19,7 +19,7 @@ config.server.secret = process.env.SECRET ||
 /* Set the port number */
 config.server.port = process.env.PORT || 3000
 /* Static asset directory location*/
-config.server.assetDir = process.env.ASSET_DIR || path.resolve('./assets')
+config.server.assetDir = process.env.ASSET_DIR || path.resolve('./dist/assets')
 /* Freeze the config object so that settings can't be modified post-launch */
 Object.freeze(config)
 

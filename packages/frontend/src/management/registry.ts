@@ -77,6 +77,7 @@ export class CentralRegistry {
     /// @ts-ignore
     // if (args) args = args.flat();
     window._tracker.logger.info(`REGISTRY: event ${event} was published with ${ args && args[0].length ? `args: ${args}` : 'no args' }`);
+    /* Get list of subscribers to this event */
     let subscriptions = this.subscriptions.get(event);
     if (!subscriptions) return;
 

@@ -3,6 +3,8 @@
 # Author: Donald Isaac    #
 ###########################
 
+# TODO: THIS IS NOT DONE!!
+
 # Variables
 node_env="development"			# NODE_ENV environment variable
 dev=false						# Launch in development mode? Development mode

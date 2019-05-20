@@ -4,6 +4,7 @@
   "description": "Issue tracker and feedback widget",
   "scripts": {
     "start": "sh bin/launch.sh",
+    "serve": "open packages/playground/index.html & NODE_ENV=development SECRET=keyboard_cat DEBUG=bugsleuth:* nodemon dist/server.js",
     "build": "sh bin/build.sh",
     "postinstall": "npm ddp",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +17,8 @@
     "Feedback",
     "Issue",
     "Tracker",
-    "Widget"
+    "Widget",
+    "Node"
   ],
   "author": "Donald Isaac",
   "license": "MIT",

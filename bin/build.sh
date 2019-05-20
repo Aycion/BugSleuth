@@ -10,7 +10,7 @@
 
 root_dir=$(pwd)								# Project's root directory
 is_prod=true								# Build in production mode?
-
+											# TODO: use optargs to set is_prod
 
 
 #### FRONTEND BUILD ####

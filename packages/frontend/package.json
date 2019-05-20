@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/DonIsaac/BugSleuth#readme",
   "dependencies": {
+    "ky": "^0.11.0",
     "preact": "^8.4.2",
     "ulog": "^1.1.0"
   },
