@@ -14,7 +14,7 @@ is_prod=true								# Build in production mode?
 
 
 #### FRONTEND BUILD ####
-echo "Building frontend..."
+echo "BugSleuth: building frontend..."
 cd ${root_dir}/packages/frontend			# Move to the frontend directory
 
 if [ -e dist/ ] ; then
@@ -28,9 +28,10 @@ else
 fi
 
 
+sass src/styles/app.scss dist/bugsleuth.css	# Compile the stylesheet
 
 #### BACKEND BUILD ####
-echo "Building backend..."
+echo "BugSleuth: building backend..."
 cd ${root_dir}/packages/backend				# Move to the backend directory
 
 if [ -e dist/ ] ; then
@@ -61,19 +62,22 @@ fi
 
 cd $root_dir
 if [ -f -e dist ] ; then					# Remove the old dist folder
-	rm -rf dist
+	rm -f dist/*.js
+	rm -f dist/*.json
+	rm -f dist/assets/*.*
+	
 fi
 
-mkdir -p dist/assets						# Remake the dist folder
-cp packages/frontend/dist/bugsleuth.js dist/assets/	# Move the built widget to the 
-								# dist/assets folder
+mkdir -p dist/assets								# Remake the dist folder
+cp packages/frontend/dist/bugsleuth.* dist/assets/	# Move the built widget and 
+													# stylesheet to the 
+													# dist/assets folder
 
-cp packages/backend/dist/server.js dist/		# Add server.js to dist
-	
-cp packages/backend/package.json dist/			# Add package.json to dist
+cp packages/backend/dist/server.js dist/			# Add server.js to dist
+cp packages/backend/package.json dist/				# Add package.json to dist
 
 
-echo "Installing..."
+echo "BugSleuth: installing..."
 cd ${root_dir}/dist				
-npm install									# Install dependencies and
-											# create package-lock.json
+npm install											# Install dependencies and
+													# create package-lock.json

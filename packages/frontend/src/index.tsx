@@ -24,11 +24,18 @@ wrapper.setAttribute('style', 'position: absolute; right: 2rem; bottom: 1rem;');
 let shadow = wrapper.attachShadow({ mode: 'open' });
 
 /* Add FontAwesome to the page */
-let fontAwesome = document.createElement('link');
+/* let fontAwesome = document.createElement('link');
 fontAwesome.setAttribute('rel', 'stylesheet');
 fontAwesome.setAttribute('href', 'https://use.fontawesome.com/releases/v5.8.2/css/all.css');
 fontAwesome.setAttribute('crossorigin', 'anonymous');
-fontAwesome.setAttribute('integrity', 'sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay');
+fontAwesome.setAttribute('integrity', 'sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay'); */
+
+let stylesheet = document.createElement('link');
+stylesheet.setAttribute('rel', 'stylesheet');
+stylesheet.setAttribute('type', 'text/css');
+/* Change this URL to your own custom URL */
+stylesheet.setAttribute('href', 'http://localhost:3000/widget/stylesheet');
+
 
 /* New Feedback Overlay sidebar element */
 /* let overlayWrapper = document.createElement('div');
@@ -44,7 +51,8 @@ window.addEventListener('keydown', e => {
 });
 
 /* Attach everything to their respective mounts */
-shadow.appendChild(fontAwesome);
+// shadow.appendChild(fontAwesome);
+shadow.appendChild(stylesheet);
 // @ts-ignore
 let sidebar = render(<Sidebar />, shadow);
 // @ts-ignore

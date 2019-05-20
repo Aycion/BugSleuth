@@ -1,9 +1,10 @@
-# Logs and Temporary Files
+# Logs, Caches and Temporary Files
 logs
 *.log
 npm-debug.log*
 *.tmp
 **/*/tmp/
+**/*/.sass-cache
 
 # Runtime data
 pids
@@ -50,6 +51,8 @@ jspm_packages
 
 # Built files
 dist/
+**/*/dist/
 
 # System Files
 .DS_Store
+

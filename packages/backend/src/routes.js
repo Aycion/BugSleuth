@@ -20,8 +20,8 @@ module.exports = exports = function createRoutes(config) {
 	const routes = Router()
 	const { assetDir } = config.server
 
-	routes.get('/stylesheet', (req, res) => {
-
+	routes.get('/widget/stylesheet', (req, res, next) => {
+		return res.sendFile(path.join(assetDir, stylesheet), next)
 	})
 	
 	routes.get('/scripts/bootstrap', async (req, res, next) => {
@@ -29,8 +29,7 @@ module.exports = exports = function createRoutes(config) {
 		res.sendFile(path.join(assetDir, bootstrap), next)
 	})
 
-	routes.get('/scripts/widget', (req, res, next) => {
-		console.log(path.join(assetDir, widget))
+	routes.get('/widget/script', (req, res, next) => {
 		return res.sendFile(path.join(assetDir, widget), next)
 	})
 
