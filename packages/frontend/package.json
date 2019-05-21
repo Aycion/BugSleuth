@@ -26,6 +26,7 @@
   "dependencies": {
     "ky": "^0.11.0",
     "preact": "^8.4.2",
+    "reflect-metadata": "^0.1.13",
     "ulog": "^1.1.0"
   },
   "devDependencies": {
