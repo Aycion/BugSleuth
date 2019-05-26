@@ -9,11 +9,17 @@ import * as reflect from 'reflect-metadata';
 export interface IService {
 
   /**
+   *  The key the service will be provided under.
+   */
+  key: string;
+
+  /**
    * Called when the Service is initialized.
    */
   onInit();
 }
 
+/* TODO: Should reflection even be used for DI? Should DI even be used??? */
 /**
  * Marks a class as an injectable Service.
  *
@@ -23,7 +29,7 @@ export interface IService {
 export function Service(key?: string | Function): ClassDecorator {
   return function (target: Function) {
     if (!key)
-      key = target;
+      key = target; // Use the class as the key
 
     Reflect.defineMetadata('service:key', key, target);
   };

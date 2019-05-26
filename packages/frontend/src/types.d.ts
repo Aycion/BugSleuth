@@ -1,4 +1,4 @@
-import { CentralRegistry } from "./management/registry";
+import { CentralRegistry, PublisherComponent } from "./management/registry";
 
 declare global {
   interface Window {
@@ -33,7 +33,7 @@ declare global {
    */
   interface Subscription {
     /** The object or class subscribing to an Event */
-    subscriber: any;
+    subscriber: PublisherComponent | any;
 
     /** The callback to invoke when an event is published */
     callback: Function;

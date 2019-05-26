@@ -5,6 +5,9 @@
 
 # TODO: THIS IS NOT DONE!!
 
+echo "ERROR: This script is not ready to be used. Please use 'npm run build' to build the application."
+exit 1
+
 # Variables
 node_env="development"			# NODE_ENV environment variable
 dev=false						# Launch in development mode? Development mode

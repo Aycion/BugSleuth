@@ -4,6 +4,8 @@ import { Service } from '../service';
 @Service()
 export default class JiraAdapter implements Adapter {
 
+  public key: string = 'ADAPTER';
+
   onInit() {
     /* TODO */
   }

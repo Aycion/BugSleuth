@@ -1,4 +1,5 @@
 import { Component } from 'preact';
+import { IService } from '../services/service';
 
 /**
  * Stores a map of subscribers and observers and handles all event emissions and
@@ -22,9 +23,18 @@ export class CentralRegistry {
    * that listens for said event.
    */
   private subscriptions: Map<String, Subscription[]>;
+  private services: Map<string, IService>;
 
-  constructor() {
+  constructor(providers?: Array<IService>) {
     this.subscriptions = new Map();
+    this.services = new Map();
+
+    for (let provider of providers) {
+      /* TODO: Should the singleton be initialized before being put into the
+      registry, or should a class be passed? If a class, then HOW? */
+      this.services.set(provider.key, provider);
+    }
+
   }
 
   /**
@@ -73,10 +83,10 @@ export class CentralRegistry {
    * @param args          Arguments to send to the `Subscription`'s callback
    *                      function
    */
-  notify(publisher: PublisherComponent, event: String, ...args: any[]): void {
-    /// @ts-ignore
-    // if (args) args = args.flat();
-    window._tracker.logger.info(`REGISTRY: event ${event} was published with ${ args && args[0].length ? `args: ${args}` : 'no args' }`);
+  notify(publisher: PublisherComponent | Window | Document, event: String, ...args: any[]): void {
+    /* TODO: This jawn gets mangled by webpack, so constructor.name is kinda useless */
+    window._tracker.logger.info(`REGISTRY: event ${event} was published by ${publisher.constructor.name} \
+    with ${args && args[0].length ? `args: ${args}` : 'no args'}`);
     /* Get list of subscribers to this event */
     let subscriptions = this.subscriptions.get(event);
     if (!subscriptions) return;
@@ -85,6 +95,17 @@ export class CentralRegistry {
       // sub.callback(...args);
       sub.callback.apply(sub.subscriber, ...args);
     }
+  }
+
+  /**
+   * Gets a reference to a service singleton.
+   *
+   * @param key The key the service is provided under
+   *
+   * @returns The service being requested
+   */
+  getService(key: string): IService {
+    return this.services.get(key);
   }
 
 }
@@ -148,6 +169,9 @@ export abstract class PublisherComponent extends Component<any, any> {
   }
 
 }
+
+/* TODO: Doesn't work :( something something target isn't really the
+  PublisherComponent instance or something? */
 
 /**
  * Subscribes a method to the central registry.
