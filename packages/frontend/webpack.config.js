@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { resolve, join } = require('path');
 
 const context = __dirname + '/src';
@@ -8,13 +9,6 @@ const context = __dirname + '/src';
 module.exports = (env) => {
   const node_env = process.env.NODE_ENV || 'production';
   const appEntryPoints = 'index';
-/*   const appEntryPoints = isProd
-  ? ['./index']
-  : [
-      `webpack-dev-server/client?http://localhost:${port}`,
-      'webpack/hot/only-dev-server',
-      './index'
-    ]; */
 
   const config = {
     name: 'bugsleuth',
@@ -57,6 +51,22 @@ module.exports = (env) => {
        }
       ]
     },
+/*     optimization: {
+      minimizer: [ new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          warnings: false,
+          parse: {},
+          compress: {},
+          mangle: true, // Note `mangle.properties` is `false` by default.
+          output: null,
+          toplevel: false,
+          nameCache: null,
+          ie8: false,
+          keep_fnames: true,
+        }
+      }) ],
+    }, */
     plugins: []
   };
   
