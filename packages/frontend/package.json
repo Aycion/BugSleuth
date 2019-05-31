@@ -4,6 +4,7 @@
   "description": "BugSleuth's widget UI",
   "main": "src/index.tsx",
   "scripts": {
+    "storybook": "start-storybook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,12 +31,12 @@
     "ulog": "^1.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/preact": "^5.0.11",
     "@types/node": "^12.0.0",
-    "css-loader": "^2.1.1",
+    "babel-loader": "^8.0.6",
     "node-sass": "^4.12.0",
     "sass": "^1.20.1",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
     "ts-loader": "^6.0.0",
     "tslint": "^5.16.0",
     "tslint-loader": "^3.5.4",

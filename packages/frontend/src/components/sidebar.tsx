@@ -30,7 +30,7 @@ export class Sidebar extends PublisherComponent {
     return (
         <div class="tracker sidebar">
           <div class="sidebar-btn" onClick={this.elemFeedbackClickClick}>
-            <span class="fas fa-map-marker-alt"></span>
+            <span class="fa fa-map-marker-alt"></span>
           </div>
           <div class="sidebar-btn" onClick={this.pageFeedbackClick}>
             <span class="fas fa-columns"></span>

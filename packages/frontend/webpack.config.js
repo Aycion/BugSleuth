@@ -44,11 +44,7 @@ module.exports = (env) => {
           test: /\.tsx?$/,
           loader: 'ts-loader',
           exclude: /node_modules/
-        },
-        {
-          test: /\.(s*)css$/,
-          use: ['style-loader', 'css-loader', 'sass-loader']
-       }
+        }
       ]
     },
 /*     optimization: {

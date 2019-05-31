@@ -51,6 +51,12 @@ wrapper.setAttribute('style', 'position: absolute; right: 2rem; bottom: 1rem;');
 let shadow = wrapper.attachShadow({ mode: 'open' });
 
 /* Build the link tag that will get BugSleuth's stylesheet */
+let fontawesome = document.createElement('link');
+fontawesome.setAttribute('rel', 'stylesheet');
+fontawesome.setAttribute('href', 'https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+fontawesome.setAttribute('integrity', 'sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay');
+fontawesome.setAttribute('crossorigin', 'anonymous');
+shadow.appendChild(fontawesome);
 let stylesheet = document.createElement('link');
 stylesheet.setAttribute('rel', 'stylesheet');
 stylesheet.setAttribute('type', 'text/css');
