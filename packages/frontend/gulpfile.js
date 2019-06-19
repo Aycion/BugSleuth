@@ -1,23 +1,31 @@
 const { src, dest, series, parallel } = require('gulp')
-const wp = require('webpack-stream')
-const ts = require('gulp-typescript').createProject('tsconfig.json')
 const del = require('del')
+const { exec } = require('child_process')
+const sass = require('gulp-sass')
+ 
+sass.compiler = require('node-sass')
 
-const frontend = {
-	entry: '/**/*.*',
-	webpackConfig: './webpack.config.js',
-	dest: 'dist'
+function clean() {
+	return del('dist/**/*')
 }
 
-function clean(dirs) {
-	return () => del(dirs)
+function build_js() {
+	return exec('webpack --env.NODE_ENV=production')
+
 }
 
-function buildFrontend() {
-	return src(['src/**/*.tsx', 'src/**/*.ts'])
-	.pipe(ts())
-	// .pipe(wp(require('./webpack.config')))
-	.pipe(dest('dist'))
+function build_css() {
+	return src('src/styles/**/*.scss')
+	.pipe(sass({outFile: 'bugsleuth.css'}).on('error', sass.logError))
+    .pipe(dest('./dist'))
 }
 
-module.exports['build-frontend'] = series(clean('dist/'), buildFrontend)
+function deploy() {
+	return src('dist/**/*.*')
+	.pipe(dest('../../dist/assets'))
+
+}
+module.exports['clean'] = clean
+module.exports['build'] = series(parallel(build_js, build_css))
+module.exports['deploy:styles'] = series(build_css, deploy)
+module.exports.default = series(parallel(build_js, build_css), deploy)

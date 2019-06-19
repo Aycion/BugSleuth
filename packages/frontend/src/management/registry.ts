@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import { IService } from '../services/service';
+import { Service } from '../services/service';
 
 /**
  * Stores a map of subscribers and observers and handles all event emissions and
@@ -22,10 +22,10 @@ export class CentralRegistry {
    * that triggers the event, while the `value` is the subscriber
    * that listens for said event.
    */
-  private subscriptions: Map<String, Subscription[]>;
-  private services: Map<string, IService>;
+  private subscriptions: Map<string, Subscription[]>;
+  private services: Map<string, Service>;
 
-  constructor(providers?: Array<IService>) {
+  constructor(providers?: Array<Service>) {
     this.subscriptions = new Map();
     this.services = new Map();
 
@@ -45,7 +45,7 @@ export class CentralRegistry {
    * @param callback      The callback to function to invoke
    *                      when the Event is published
    */
-  registerSubscriber(event: String, subscriber: any, callback: Function): void {
+  registerSubscriber(event: string, subscriber: any, callback: Function): void {
     if (!this.subscriptions.has(event))
       this.subscriptions.set(event, []);
 
@@ -61,7 +61,7 @@ export class CentralRegistry {
    * @param event         The event to unsubscribe from
    * @param subscriber    The subscriber being removed
    */
-  removeSubscriber(event: String, subscriber: any): void {
+  removeSubscriber(event: string, subscriber: any): void {
     if (!this.subscriptions.has(event)) return;
 
     /*
@@ -83,9 +83,9 @@ export class CentralRegistry {
    * @param args          Arguments to send to the `Subscription`'s callback
    *                      function
    */
-  notify(publisher: PublisherComponent | Window | Document, event: String, ...args: any[]): void {
+  notify(publisher: PublisherComponent | Window | Document, event: string, ...args: any[]): void {
     /* TODO: This jawn gets mangled by webpack, so constructor.name is kinda useless */
-    window._tracker.logger.info(`REGISTRY: event ${event} was published by ${publisher.constructor.name} \
+    window._tracker.logger.info(`REGISTRY: event ${event} was published \
     with ${args && args[0].length ? `args: ${args}` : 'no args'}`);
     /* Get list of subscribers to this event */
     let subscriptions = this.subscriptions.get(event);
@@ -104,7 +104,7 @@ export class CentralRegistry {
    *
    * @returns The service being requested
    */
-  getService(key: string): IService {
+  getService(key: string): Service {
     return this.services.get(key);
   }
 
@@ -116,7 +116,7 @@ export class CentralRegistry {
  */
 export abstract class PublisherComponent extends Component<any, any> {
 
-  private events: String[];
+  private events: string[];
 
   constructor(props) {
     super(props);
@@ -180,7 +180,7 @@ export abstract class PublisherComponent extends Component<any, any> {
  *
  * @param event            The event to subscribe to.
  */
-export function Subscribe(event: String): MethodDecorator {
+export function Subscribe(event: string): MethodDecorator {
   if (typeof event !== 'string') {
     let err = new TypeError('event must be of type "string"');
     window._tracker.logger.error(err);

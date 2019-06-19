@@ -2,6 +2,7 @@
 # 									 build.sh								   #
 #																			   #
 # Builds the frontend and backend and puts them in the dist/ folder.		   #
+# NOTICE: This script has been deprecated. Please use 'gulp build' instead.	   #
 #																			   #
 # Author: Donald Isaac														   #
 # Licensed under the MIT License											   #

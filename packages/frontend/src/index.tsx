@@ -22,11 +22,9 @@ import { FeedbackModal } from './components/feedback-modal';
 import { ElementSelector } from './components/element-selector';
 
 /* Services */
-import { IService } from './services/service';
-/* TODO: Is this import neccessary? I don't think it is */
-/* import './styles/app.scss'; */
+import { Service } from './services/service';
 
-const providers: Array<IService> = [
+const providers: Array<Service> = [
   /* TODO: Put services in here */
 ];
 
@@ -56,25 +54,19 @@ fontawesome.setAttribute('rel', 'stylesheet');
 fontawesome.setAttribute('href', 'https://use.fontawesome.com/releases/v5.8.2/css/all.css');
 fontawesome.setAttribute('integrity', 'sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay');
 fontawesome.setAttribute('crossorigin', 'anonymous');
-shadow.appendChild(fontawesome);
+
 let stylesheet = document.createElement('link');
 stylesheet.setAttribute('rel', 'stylesheet');
 stylesheet.setAttribute('type', 'text/css');
 /* Change this URL to your own custom URL */
 stylesheet.setAttribute('href', 'http://localhost:3000/widget/stylesheet');
 
+let publicStylesheet = document.createElement('link');
+publicStylesheet.setAttribute('rel', 'stylesheet');
+publicStylesheet.setAttribute('type', 'text/css');
+publicStylesheet.setAttribute('href', 'http://localhost:3000/styles/public');
 
-/* Close all overlays when the Escape key is pressed */
-/* window.addEventListener('keydown', e => {
-  if (e.code === 'Escape')
-    // @ts-ignore
-    window._tracker.registry.notify(window, 'OVERLAY_SIG_HIDE');
-}); */
-
-/* Attach everything to their respective mounts */
-shadow.appendChild(stylesheet);
-
-/* Add the components to the wrapper div's shadow DOM root node. */
+/* Add the components to the wrapper div's shadow root. */
 [
   <Sidebar />,
   <FeedbackModal />,
@@ -83,7 +75,10 @@ shadow.appendChild(stylesheet);
   render(component, shadow);
 });
 
-/* let sidebar = render(<Sidebar />, shadow);
-render(<FeedbackModal />, shadow);
-render(<ElementSelector />, shadow) */
+/* Attach everything else to their respective mounts */
+document.head.appendChild(publicStylesheet);
+// I don't know why, but fontawesome needs to be in the head
+// not the shadow root). Otherwise, icons will not render correctly.
+document.head.appendChild(fontawesome);
+shadow.appendChild(stylesheet);
 document.body.appendChild(wrapper);

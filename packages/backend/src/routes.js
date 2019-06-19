@@ -7,6 +7,7 @@ const path = require('path')
 const bootstrap = 'bootstrap.js'	/* Name of the bootstrap script file */
 const widget = 'bugsleuth.js'		/* Name of the main widget script file */
 const stylesheet = 'bugsleuth.css'	/* Name of the stylesheet file */
+const publicStylesheet = 'bugsleuth_public.css'
 
 /**
  * Router factory function.
@@ -20,6 +21,11 @@ module.exports = exports = function createRoutes(config) {
 	const routes = Router()
 	const { assetDir } = config.server
 
+  /* 
+   * TODO: organize as /[asset type]/[name] instead of
+   * /[name]/[asset type]
+   */
+
 	routes.get('/widget/stylesheet', (req, res, next) => {
 		return res.sendFile(path.join(assetDir, stylesheet), next)
 	})
@@ -31,7 +37,11 @@ module.exports = exports = function createRoutes(config) {
 
 	routes.get('/widget/script', (req, res, next) => {
 		return res.sendFile(path.join(assetDir, widget), next)
-	})
+  })
+  
+  routes.get('/styles/public', (req, res, next) => {
+    return res.sendFile(path.join(assetDir, publicStylesheet), next)
+  })
 
 	return routes
 }

@@ -6,7 +6,7 @@ import * as reflect from 'reflect-metadata';
  * global `CentralRegsitry` singleton. Before they can be injected, they first
  * must be listed as a `provider` in the `CentralRegistry`.
  */
-export interface IService {
+export interface Service {
 
   /**
    *  The key the service will be provided under.

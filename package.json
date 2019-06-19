@@ -2,12 +2,16 @@
   "name": "bugsleuth",
   "version": "1.0.0",
   "description": "Issue tracker and feedback widget",
+  "author": "Donald Isaac",
+  "preferGlobal": true,
+  "bin": {
+    "sleuth": "bin/bugsleuth.js"
+  },
   "scripts": {
-    "start": "sh bin/launch.sh",
-    "serve": "open packages/playground/index.html & NODE_ENV=development SECRET=keyboard_cat DEBUG=bugsleuth:* nodemon dist/server.js",
-    "build": "sh bin/build.sh",
+    "start": "gulp dev",
+    "build": "gulp build",
     "preinstall": "npm install packages/frontend ; npm install packages/backend",
-    "postinstall": "npm ddp packages/frontend ; npm ddp packages/backend",
+    "postinstall": "npm ddp packages/frontend ; npm ddp packages/backend ; npm ddp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +25,6 @@
     "Widget",
     "Node"
   ],
-  "author": "Donald Isaac",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/DonIsaac/BugSleuth/issues"
@@ -43,6 +46,6 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-
+    "@bugsleuth/backend": "file:dist"
   }
 }
