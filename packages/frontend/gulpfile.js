@@ -10,8 +10,7 @@ function clean() {
 }
 
 function build_js() {
-	return exec('webpack --env.NODE_ENV=production')
-
+	return pipe_output(exec('webpack --env.NODE_ENV=production --display-error-details true'), 1)
 }
 
 function build_css() {
@@ -25,7 +24,28 @@ function deploy() {
 	.pipe(dest('../../dist/assets'))
 
 }
+
 module.exports['clean'] = clean
 module.exports['build'] = series(parallel(build_js, build_css))
 module.exports['deploy:styles'] = series(build_css, deploy)
 module.exports.default = series(parallel(build_js, build_css), deploy)
+
+/**
+ * Pipes the output streams of a process to the executing task's
+ * output streams.
+ * 
+ * @param {ChildProcess} child_process the child process to pipe
+ * @param {Number} mode 0 to pipe stderr only, 1 to pipe stdout only, 2 for both
+ */
+function pipe_output(child_process, mode = 0) {
+	if (mode == 0)
+		child_process.stderr.pipe(process.stderr)
+	else if (mode == 1)
+		child_process.stdout.pipe(process.stdout)
+	else {
+		child_process.stderr.pipe(process.stderr)
+		child_process.stdout.pipe(process.stdout)
+	}
+
+	return child_process
+}

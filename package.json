@@ -1,6 +1,6 @@
 {
   "name": "bugsleuth",
-  "version": "1.0.0",
+  "version": "1.1.1.alpha",
   "description": "Issue tracker and feedback widget",
   "author": "Donald Isaac",
   "preferGlobal": true,
@@ -34,6 +34,8 @@
     "del": "^4.1.1",
     "gulp": "^4.0.2",
     "gulp-typescript": "^5.0.1",
+    "gulp-zip": "^5.0.0",
+    "handlebars": "^4.1.2",
     "html-webpack-plugin": "2.30.1",
     "jest": "22.3.0",
     "preact-compat": "3.18.0",
@@ -46,6 +48,7 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "@bugsleuth/backend": "file:dist"
+    "@bugsleuth/backend": "file:dist",
+    "bluebird": "^3.5.5"
   }
 }

@@ -7,7 +7,7 @@ function clean() {
 }
 
 function build_js() {
-	return exec('webpack --env.NODE_ENV=production')
+	return pipe_output(exec('webpack --env.NODE_ENV=production'), 1)
 	/* return ts.src()
 	.pipe(ts())
 	.pipe(wp(require('./webpack.config')))
@@ -31,3 +31,23 @@ module.exports['build'] = build_js
 module.exports['clean'] = clean
 module.exports['deploy-server'] = series(build_js, deploy_server)
 module.exports.default = series(build_js, deploy)
+
+/**
+ * Pipes the output streams of a process to the executing task's
+ * output streams.
+ * 
+ * @param {ChildProcess} child_process the child process to pipe
+ * @param {Number} mode 0 to pipe stderr only, 1 to pipe stdout only, 2 for both
+ */
+function pipe_output(child_process, mode = 0) {
+	if (mode == 0)
+		child_process.stderr.pipe(process.stderr)
+	else if (mode == 1)
+		child_process.stdout.pipe(process.stdout)
+	else {
+		child_process.stderr.pipe(process.stderr)
+		child_process.stdout.pipe(process.stdout)
+	}
+
+	return child_process
+}

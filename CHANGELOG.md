@@ -1,6 +1,18 @@
 # Change Log
 
-## v 1.1.0 Alpha
+## :rocket: v 1.1.1.alpha
+
+- Added GitHub pages support in `docs/`. Currently has the following pages:
+  - Index (navigation links, features overview)
+  - Quick Start (installing, usage)
+  - Features (full list)
+  - Documentation
+- Improved build scripts
+- Documentation pages are created with the `render.js` script in `docs/src`
+    - Uses handlebars templates
+    - Powered by Bluebird promises
+
+## :rocket: v 1.1.0.alpha
 
 - Improved build process
   - Switched from bash to gulp tasks

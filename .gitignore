@@ -4,7 +4,7 @@ logs
 npm-debug.log*
 *.tmp
 **/*/tmp/
-**/*/.sass-cache
+.sass-cache
 
 # Runtime data
 pids
