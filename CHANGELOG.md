@@ -1,8 +1,13 @@
 # Change Log
 
+## :rocket: v 1.1.2.alpha
+
+- Added partials support for documentation pages
+- Changed the favicon to a more suitable picture
+
 ## :rocket: v 1.1.1.alpha
 
-- Added GitHub pages support in `docs/`. Currently has the following pages:
+- Added GitHub pages support in `docs/`. Currently has the following pages (Note: Pages are not completed):
   - Index (navigation links, features overview)
   - Quick Start (installing, usage)
   - Features (full list)

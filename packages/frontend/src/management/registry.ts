@@ -38,6 +38,15 @@ export class CentralRegistry {
   }
 
   /**
+   * Get a reference to a service.
+   *
+   * @param key the key the service is provided under
+   */
+  service(key: string): Service {
+    return this.services.get(key);
+  }
+
+  /**
    * Adds a new `Subscription` to the specified event.
    *
    * @param event         The Event to register to
@@ -197,5 +206,18 @@ export function Subscribe(event: string): MethodDecorator {
     }
 
     window._tracker.registry.registerSubscriber(event, target, descriptor.value as Function);
+  };
+}
+
+export function Inject(key: string): PropertyDecorator {
+  if (typeof key !== 'string') {
+    let err = new TypeError('key must be of type "string"');
+    window._tracker.logger.error(err);
+
+    throw err;
+  }
+
+  return function(target, propertyKey) {
+    // TODO
   };
 }

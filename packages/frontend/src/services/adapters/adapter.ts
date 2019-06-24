@@ -1,8 +1,8 @@
-import { IService } from '../service';
+import { Service } from '../service';
 /**
  * TODO
  */
-export interface Adapter extends IService {
+export interface Adapter extends Service {
 
   /**
    * TODO

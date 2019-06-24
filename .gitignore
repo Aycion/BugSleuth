@@ -52,6 +52,7 @@ jspm_packages
 # Built files
 dist/
 **/*/dist/
+*.zip
 
 # System Files
 .DS_Store

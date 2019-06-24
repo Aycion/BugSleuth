@@ -14,7 +14,7 @@ const start_server = () => pipe_output(exec('NODE_ENV=development SECRET=keyboar
 
 const build_docs = () => {
   pipe_output(exec('sass ./docs/assets/scss/styles.scss ./docs/assets/css/styles.css'), 2)
-  pipe_output(fork('./docs/src/render.js'))
+  pipe_output(fork('./docs/src/render.js'), 2)
   
   return src(['dist/**/*.*', '!dist/**/*.json', '!dist/**/*.map.*'])
   .pipe(zip(`bugsleuth-${package.version}.zip`))
@@ -54,7 +54,7 @@ const dev_server = async () => {
 	/* Only update package.json on a dependency change.
 	   Reduces unnecessary installations */
   watch(['packages/backend/*.json'], build_backend)
-  watch(['docs/src/**', 'docs/assets/**', '!docs/assets/css/**'], build_docs)
+  // watch(['docs/src/render.js', 'docs/src/data/**', 'docs/src/**/*.hbs', 'docs/assets/**', '!docs/assets/css/**'], build_docs)
 	watch('dist/*.json', install)
 }
 
@@ -96,13 +96,15 @@ module.exports['clean'].description = 'Deletes compiled and intermediate files/d
  * @return {ReadableStream} the modified `child_process` parameter
  */
 function pipe_output(child_process, mode = 0) {
-	if (mode == 0)
+	if (mode == 0 && child_process.stderr)
 		child_process.stderr.pipe(process.stderr)
-	else if (mode == 1)
+	else if (mode == 1 && child_process.stdout)
 		child_process.stdout.pipe(process.stdout)
 	else {
-		child_process.stderr.pipe(process.stderr)
-		child_process.stdout.pipe(process.stdout)
+    if (child_process.stderr)
+      child_process.stderr.pipe(process.stderr)
+    if (child_process.stdout)
+		  child_process.stdout.pipe(process.stdout)
 	}
 
 	return child_process
