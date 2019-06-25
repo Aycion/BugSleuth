@@ -56,6 +56,7 @@ export class ElementSelector extends PublisherComponent {
       clickCoords: [e.x, e.y],
       hidden: true
     });
+    this.hide();
   }
 
   /**
@@ -106,7 +107,7 @@ export class ElementSelector extends PublisherComponent {
   componentDidUpdate() {
     if (this.state.shouldFindSelectedElement && this.state.hidden) {
       let [x, y] = this.state.clickCoords;
-      this.publish('SELECTOR_ELEM_SELECTED', document.elementsFromPoint(x, y));
+      this.publish('SELECTOR_ELEM_SELECTED', document.elementsFromPoint(x, y)[1]);
     }
   }
 
@@ -138,8 +139,7 @@ export class ElementSelector extends PublisherComponent {
     else return (
       <div class="selector-dimmer"
         onClick={this.handleClick.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this)}
-        onKeyPress={console.log}>
+        onMouseMove={this.handleMouseMove.bind(this)}>
         <span class="selector-exit" onClick={this.hide.bind(this)}>&times;</span>
         {/* props.children */}
       </div>

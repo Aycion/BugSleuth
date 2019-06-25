@@ -1,11 +1,17 @@
 # Change Log
 
-## :rocket: v 1.1.2.alpha
+## :rocket: v1.1.3.alpha
+
+- Small changes to feedback form
+- Started `PinManager`
+- Fixed typo in `docs/src/render.js`
+
+## :rocket: v1.1.2.alpha
 
 - Added partials support for documentation pages
 - Changed the favicon to a more suitable picture
 
-## :rocket: v 1.1.1.alpha
+## :rocket: v1.1.1.alpha
 
 - Added GitHub pages support in `docs/`. Currently has the following pages (Note: Pages are not completed):
   - Index (navigation links, features overview)
@@ -17,7 +23,7 @@
     - Uses handlebars templates
     - Powered by Bluebird promises
 
-## :rocket: v 1.1.0.alpha
+## :rocket: v1.1.0.alpha
 
 - Improved build process
   - Switched from bash to gulp tasks

@@ -58,7 +58,6 @@ function raise(msg) {
 const sources_async = () => readdir(TEMPLATE_SOURCE_DIR, 'utf-8')
   .filter(f => {
     let split_file = f.split('.')
-    String.prototype.star
     // templates must end in .hbs. Also, ignore partials, which start with '_'
     return split_file[split_file.length - 1] === 'hbs' && !split_file[0].startsWith('_')
   })

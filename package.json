@@ -1,6 +1,6 @@
 {
   "name": "bugsleuth",
-  "version": "1.1.1.alpha",
+  "version": "1.1.3.alpha",
   "description": "Issue tracker and feedback widget",
   "author": "Donald Isaac",
   "preferGlobal": true,

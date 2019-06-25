@@ -26,6 +26,8 @@ export class FeedbackModal extends PublisherComponent {
   }
 
   openElemFeedback(...args: any[]) {
+    let [selected] = args;
+    console.log(selected);
     this.setState({
       feedbackType: 'elem'
     });
@@ -52,15 +54,28 @@ export class FeedbackModal extends PublisherComponent {
   }
 }
 
+/**
+ * Feedback Form Options:
+ *  - Title
+ *  - Description
+ *  - Track who submitted it
+ *  - Severity [1, 2, 3, 4, 5], start off with default
+ *    - color pins by severity
+ * 
+ * @param param0 props
+ * @param param1 state
+ */
 const ElemFeedbackForm = ({ }, { }) => (
-  <form>
-    <input type="text" value="What is your feedback?" />
+  <form class="feedback-form">
+    <label for="feedback">What is your feedback?</label>
+    <br />
+    <input name="feedback" type="text" width="90%" height="90%" />
   </form>
 );
 
 const PageFeedbackForm = ({ }, { }) => {
   return (
-    <form>
+    <form class="feedback-form">
       <input type="text" value="What is your feedback?" />
     </form>
   );
