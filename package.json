@@ -1,0 +1,52 @@
+{
+  "name": "@bugsleuth/frontend",
+  "version": "1.0.0",
+  "description": "BugSleuth's widget UI",
+  "main": "src/index.tsx",
+  "scripts": {
+    "storybook": "start-storybook",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonIsaac/BugSleuth.git"
+  },
+  "keywords": [
+    "preact",
+    "typescript",
+    "widget",
+    "ui",
+    "bugsleuth"
+  ],
+  "author": "Donald Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DonIsaac/BugSleuth/issues"
+  },
+  "homepage": "https://github.com/DonIsaac/BugSleuth#readme",
+  "dependencies": {
+    "ky": "^0.11.0",
+    "preact": "^8.4.2",
+    "reflect-metadata": "^0.1.13",
+    "ulog": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/preact": "^5.0.11",
+    "@types/node": "^12.0.8",
+    "del": "^4.1.1",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2",
+    "gulp-zip": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "sass": "^1.20.1",
+    "ts-loader": "^6.0.0",
+    "tslint": "^5.16.0",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.4.5",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-stream": "^5.2.1"
+  }
+}

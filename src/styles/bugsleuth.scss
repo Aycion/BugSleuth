@@ -1,0 +1,14 @@
+/* Entry point for all widget styles. Each component has its own stylesheet.
+ * These stylesheets are imported below for usage.
+ *
+ * @author Donald Isaac
+ */
+
+/* Get FontAwesome so that we can have cool icons and stuff */
+@import url("https://use.fontawesome.com/releases/v5.8.2/css/all.css");
+
+@import "selector";
+@import "sidebar";
+@import "modal";
+@import "overlay";
+@import "feedback";
