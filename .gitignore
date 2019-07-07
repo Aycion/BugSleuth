@@ -58,3 +58,5 @@ build/
 # System Files
 .DS_Store
 
+# API Keys
+*.key

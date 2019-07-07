@@ -3,6 +3,23 @@ import { PublisherComponent } from '../management/registry';
 import { Modal } from './modal';
 
 /**
+ * Feedback data transfer object (DTO). Defines how feedback data is transferred
+ * to the adapter.
+ */
+export interface FeedbackDTO {
+  /** The element the feedback is being provided for */
+  element: Element;
+
+  /** Feedback title */
+  title: string;
+
+  /** Long description of issue */
+  feedback: string;
+
+  /** TODO: Add user providing feedback and severity (1 - 5) */
+}
+
+/**
  * This component is the modal that the user sees when they want to
  * submit feedback.
  */
@@ -14,7 +31,7 @@ export class FeedbackModal extends PublisherComponent {
     super(props);
 
     this.setState({
-
+      // TODO
     });
 
     /*
@@ -25,58 +42,86 @@ export class FeedbackModal extends PublisherComponent {
     this.subscribe('SIDEBAR_FEEDBACK_PAGE', this.openPageFeedback);
   }
 
-  openElemFeedback(...args: any[]) {
-    let [selected] = args;
-    console.log(selected);
+  openElemFeedback(elem: Element): void {
     this.setState({
-      feedbackType: 'elem'
-    });
-    this.modal.open(null);
-    console.dir(args);
-  }
-
-  openPageFeedback(...args: any[]) {
-    this.setState({
-      feedbackType: 'page'
+      feedbackElement: elem
     });
     this.modal.open(null);
   }
 
-  render(props, state) {
-    let form = state.feedbackType === 'elem' ?
-               <ElemFeedbackForm /> :
-               <PageFeedbackForm />;
+  openPageFeedback(): void {
+    this.setState({
+      feedbackElement: window
+    });
+    this.modal.open(null);
+  }
+
+  onSubmit = (e: Event, feedback: FeedbackDTO): void => {
+    e.preventDefault(); // Don't let the form perform it's default submit action
+    this.modal.close(null);
+    feedback.element = this.state.feedbackElement;
+    this.publish('FEEDBACK_SUBMITTED', feedback);
+  }
+
+  render(props, state): JSX.Element {
     return (
       <Modal id={1} ref={modal => this.modal = modal}>
-        {form}
+        <FeedbackForm onSubmit={this.onSubmit} elem={state.feedbackElement} />
       </Modal>
     );
   }
 }
 
 /**
+ * Feedback form element. Only used in the FeedbackModal.
+ *
  * Feedback Form Options:
  *  - Title
  *  - Description
  *  - Track who submitted it
  *  - Severity [1, 2, 3, 4, 5], start off with default
  *    - color pins by severity
- * 
- * @param param0 props
- * @param param1 state
+ *
  */
-const ElemFeedbackForm = ({ }, { }) => (
-  <form class="feedback-form">
-    <label for="feedback">What is your feedback?</label>
-    <br />
-    <input name="feedback" type="text" width="90%" height="90%" />
-  </form>
-);
+class FeedbackForm extends Component<{ onSubmit: Function, elem: Element }, FeedbackDTO> {
 
-const PageFeedbackForm = ({ }, { }) => {
-  return (
-    <form class="feedback-form">
-      <input type="text" value="What is your feedback?" />
-    </form>
-  );
-};
+  constructor(props) {
+    super(props);
+
+    this.setState({
+      element: props.elem
+    });
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event): void {
+    let { name, value } = event.target;
+    console.log(`${name} changed: ${value}`);
+
+    if (name === 'feedback') {
+      this.setState({ feedback: value });
+    } else if (name === 'title') {
+      this.setState({ title: value });
+    } else {
+      throw new Error('Illegal state change: form can only take feedback and title fields');
+    }
+
+  }
+
+  render({ onSubmit }, state: FeedbackDTO): JSX.Element {
+    return (
+      <form class="feedback-form" onSubmit={e => onSubmit(e, this.state)}>
+        <label for="title">Title:</label>
+        <br />
+        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+        <br />
+        <label for="feedback">What is your feedback?</label>
+        <br />
+        <input name="feedback" type="text" value={this.state.feedback} onChange={this.handleChange} />
+        <br />
+        <button type="submit" value="Submit">Submit</button>
+      </form>
+    );
+  }
+}

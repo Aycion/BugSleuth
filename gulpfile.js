@@ -1,4 +1,4 @@
-const { src, dest, series, parallel } = require('gulp')
+const { src, dest, series, parallel, watch } = require('gulp')
 const del = require('del')
 const { exec } = require('child_process')
 const sass = require('gulp-sass')
@@ -15,6 +15,10 @@ function build_js() {
 	return pipe_output(exec('webpack --env.NODE_ENV=production --display-error-details true'), 1)
 }
 
+function build_docs() {
+	return exec('bin/render.js')
+}
+
 function build_css() {
 	return src('src/styles/**/*.scss')
 	.pipe(sass({outFile: 'bugsleuth.css'}).on('error', sass.logError))
@@ -27,11 +31,37 @@ function deploy() {
 	.pipe(dest('dist'))
 }
 
+function dev(cb) {
+	watch('src/styles/**/*.scss', build_css)
+	watch(['src/**/*.*', '!src/styles/**/*.scss'], build_js)
+	cb()
+}
+
+function launch_playground () {
+	return exec('open test/playground.html')
+}
+
 module.exports['clean'] = clean
-module.exports['build'] = series(parallel(build_js, build_css))
-module.exports['deploy:styles'] = series(build_css, deploy)
+module.exports['clean'].description = 'Removes all built files'
+
+module.exports['build'] = parallel(build_js, build_css, build_docs)
+module.exports['build'].description = 'Compiles the widget code, stylesheets, and documentation'
+module.exports['build:docs'] = build_docs
+module.exports['build:docs'].description = 'Compiles the widget documentation only'
+
+module.exports['dev'] = series(exports['build'], dev, launch_playground)
+module.exports['dev'].description = 'Builds the widget and launches a development environment'
+
 module.exports['deploy'] = deploy
-module.exports.default = series(parallel(build_js, build_css), deploy)
+module.exports['deploy'].description = 'Deploys the compiled code into a zip file for deployment'
+module.exports['deploy:styles'] = series(build_css, deploy)
+module.exports['deploy:styles'].description = 'Deploys the stylesheets only'
+
+module.exports['playground'] = launch_playground
+module.exports['playground'].description = 'Opens the development testing webpage'
+
+module.exports.default = series(exports['build'], deploy)
+module.exports.default.description = 'Compiles and deploys the widget and documentation'
 
 /**
  * Pipes the output streams of a process to the executing task's

@@ -1,6 +1,6 @@
 {
   "name": "bugsleuth",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "BugSleuth widget",
   "main": "src/index.tsx",
   "scripts": {
@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/DonIsaac/BugSleuth#readme",
   "dependencies": {
+    "bluebird": "^3.5.5",
+    "handlebars": "^4.1.2",
+    "jira-connector": "^2.15.4",
     "ky": "^0.11.0",
     "preact": "^8.4.2",
     "reflect-metadata": "^0.1.13",

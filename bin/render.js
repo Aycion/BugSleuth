@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * docs/src/render.js
  * 
@@ -23,20 +25,21 @@ const [readdir, readFile, access, writeFile] = [
   fs.writeFile
 ].map(func => Promise.promisify(func))
 
+
 // Directory for rendered pages
-const OUT_DIR_PATH = path.join(__dirname, '..')
+const OUT_DIR_PATH = path.join(__dirname, '..', 'docs')
 // Location of handlebars templates
-const TEMPLATE_SOURCE_DIR = __dirname
+const TEMPLATE_SOURCE_DIR = path.join(__dirname, '..', 'docs', 'assets', 'src')
 // Location of JSON data
-const TEMPLATE_DATA_DIR = path.join(__dirname, 'data')
+const TEMPLATE_DATA_DIR = path.join(__dirname, '..', 'docs', 'assets', 'src', 'data')
 
 // Location of directories containing partials.
 // Elements of this array can be strings or string arrays.
 // When a string array, each element represents a subdirectory.
 const TEMPLATE_PARTIALS_DIRS = [
-  'partials'
+  path.join('..', 'docs', 'assets', 'src', 'partials')
 ].map(dir => dir instanceof Array ?
-  path.resolve([__dirname, ...dir]) :
+  path.resolve([__dirname, ...dir]) : // TODO: This line isn't working
   path.resolve(__dirname, dir))
 
 console.log(`Template path: ${TEMPLATE_SOURCE_DIR}`)

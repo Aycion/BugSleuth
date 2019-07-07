@@ -95,7 +95,7 @@ export class CentralRegistry {
   notify(publisher: PublisherComponent | Window | Document, event: string, ...args: any[]): void {
     /* TODO: This jawn gets mangled by webpack, so constructor.name is kinda useless */
     window._tracker.logger.info(`REGISTRY: event ${event} was published \
-    with ${args && args[0].length ? `args: ${args}` : 'no args'}`);
+    with ${args && args[0].length ? `args: ${JSON.stringify(args)}` : 'no args'}`);
     /* Get list of subscribers to this event */
     let subscriptions = this.subscriptions.get(event);
     if (!subscriptions) return;
@@ -135,8 +135,8 @@ export abstract class PublisherComponent extends Component<any, any> {
   /**
    * Publishes an event to the listening subscribers.
    *
-   * @property event      The event to publish
-   * @property args       Arguments to send the subscribers
+   * @param event      The event to publish
+   * @param args       Arguments to send the subscribers
    */
   protected publish(event: string, ...args: any[]): void {
     window._tracker.registry.notify(this, event, args);

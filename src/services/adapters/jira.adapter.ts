@@ -1,5 +1,6 @@
 import { Adapter } from './adapter';
 import { Service } from '../service';
+import * as JiraClient from 'jira-connector';
 
 @Service()
 export default class JiraAdapter implements Adapter {

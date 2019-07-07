@@ -20,6 +20,7 @@ import { CentralRegistry } from './management/registry';
 import { Sidebar } from './components/sidebar';
 import { FeedbackModal } from './components/feedback-modal';
 import { ElementSelector } from './components/element-selector';
+import { PinManager } from './components/pin-manager';
 
 /* Services */
 import { Service } from './services/service';
@@ -38,6 +39,8 @@ let tracker: IssueTracker = window._tracker = {
 
 /* For development only. Remove during production. */
 tracker.enableDebug();
+
+const root = document.getElementById('bugsleuth-bootstrap').getAttribute('data-bs-loc');
 
 /* Root element for sidebar element */
 let wrapper = document.createElement('div');
@@ -59,18 +62,19 @@ let stylesheet = document.createElement('link');
 stylesheet.setAttribute('rel', 'stylesheet');
 stylesheet.setAttribute('type', 'text/css');
 /* Change this URL to your own custom URL */
-stylesheet.setAttribute('href', 'http://localhost:3000/widget/stylesheet');
+stylesheet.setAttribute('href', root + 'bugsleuth.css');
 
 let publicStylesheet = document.createElement('link');
 publicStylesheet.setAttribute('rel', 'stylesheet');
 publicStylesheet.setAttribute('type', 'text/css');
-publicStylesheet.setAttribute('href', 'http://localhost:3000/styles/public');
+publicStylesheet.setAttribute('href', root + 'bugsleuth_public.css');
 
 /* Add the components to the wrapper div's shadow root. */
 [
   <Sidebar />,
   <FeedbackModal />,
-  <ElementSelector />
+  <ElementSelector />,
+  <PinManager />
 ].forEach(component => {
   render(component, shadow);
 });
