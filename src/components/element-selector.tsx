@@ -4,7 +4,7 @@ import { PublisherComponent } from '../management/registry';
 /**
  * Overlay for selecting elements for feedback.
  */
-export class ElementSelector extends PublisherComponent {
+export class ElementSelector extends PublisherComponent<any, any> {
   /**
    * Current Element the cursor is hovering over during element selection.
    * This is intentionally not in the Component's state object because this
@@ -107,7 +107,7 @@ export class ElementSelector extends PublisherComponent {
   componentDidUpdate() {
     if (this.state.shouldFindSelectedElement && this.state.hidden) {
       let [x, y] = this.state.clickCoords;
-      this.publish('SELECTOR_ELEM_SELECTED', document.elementsFromPoint(x, y)[1]);
+      this.publish('SELECTOR_ELEM_SELECTED', document.elementsFromPoint(x, y)[1], {x, y});
     }
   }
 

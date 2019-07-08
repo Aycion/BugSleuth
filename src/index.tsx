@@ -21,6 +21,7 @@ import { Sidebar } from './components/sidebar';
 import { FeedbackModal } from './components/feedback-modal';
 import { ElementSelector } from './components/element-selector';
 import { PinManager } from './components/pin-manager';
+import { ConfigModal } from './components/config-modal';
 
 /* Services */
 import { Service } from './services/service';
@@ -74,7 +75,8 @@ publicStylesheet.setAttribute('href', root + 'bugsleuth_public.css');
   <Sidebar />,
   <FeedbackModal />,
   <ElementSelector />,
-  <PinManager />
+  <PinManager parent={wrapper}/>,
+  <ConfigModal />
 ].forEach(component => {
   render(component, shadow);
 });

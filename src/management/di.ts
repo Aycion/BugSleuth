@@ -1,3 +1,8 @@
+/**
+ * TODO: Make use of this in the CentralRegistry in v3.X.X
+ * TODO: Write unit tests
+ * TODO: Ensure Service decorator works as expected (see above)
+ */
 import 'reflect-metadata';
 
 export type GenericClassDecorator<T> = (target: T) => void;
@@ -7,6 +12,7 @@ export type Provider = Type<any> | object;
 export interface Type<T> {
   new(...args: any[]): T;
 }
+
 
 // export interface Provider {
 //   key?: string;

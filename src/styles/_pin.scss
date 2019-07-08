@@ -1,3 +1,8 @@
+@import "variables";
+
 .bs-pin {
 	position: absolute;
+	font-size: 2rem;
+	color: $primary;
+	z-index: 1000000;
 }

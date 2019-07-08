@@ -8,7 +8,7 @@
 import { h } from 'preact';
 import { PublisherComponent } from '../management/registry';
 
-export class Sidebar extends PublisherComponent {
+export class Sidebar extends PublisherComponent<any, any> {
 
   constructor(props) {
     super(props);
@@ -22,8 +22,8 @@ export class Sidebar extends PublisherComponent {
     this.publish('SIDEBAR_FEEDBACK_PAGE');
   }
 
-  settingsClick = (e: MouseEvent) => {
-    this.publish('SIDEBAR_OPEN_SETTINGS');
+  configClick = (e: MouseEvent) => {
+    this.publish('SIDEBAR_OPEN_CONFIG');
   }
 
   render({ }, { }) {
@@ -35,7 +35,7 @@ export class Sidebar extends PublisherComponent {
           <div class="sidebar-btn" onClick={this.pageFeedbackClick}>
             <span class="fas fa-columns"></span>
           </div>
-          <div class="sidebar-btn" onClick={this.settingsClick}>
+          <div class="sidebar-btn" onClick={this.configClick}>
             <span class="fas fa-cog"></span>
           </div>
         </div>

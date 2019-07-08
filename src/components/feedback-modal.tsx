@@ -16,6 +16,12 @@ export interface FeedbackDTO {
   /** Long description of issue */
   feedback: string;
 
+  /** Exact location of where feedback is being provided */
+  coords: {x: number, y: number};
+
+  /** Date the feedback was submitted */
+  created: number;
+
   /** TODO: Add user providing feedback and severity (1 - 5) */
 }
 
@@ -23,9 +29,13 @@ export interface FeedbackDTO {
  * This component is the modal that the user sees when they want to
  * submit feedback.
  */
-export class FeedbackModal extends PublisherComponent {
+export class FeedbackModal extends PublisherComponent<any, any> {
 
+  /** Reference to modal component */
   private modal: Modal;
+
+  /** Location of where page feedback pins will go */
+  private readonly WINDOW_FEEDBACK_COORDS = {x: 0, y: 0};
 
   constructor(props) {
     super(props);
@@ -42,16 +52,18 @@ export class FeedbackModal extends PublisherComponent {
     this.subscribe('SIDEBAR_FEEDBACK_PAGE', this.openPageFeedback);
   }
 
-  openElemFeedback(elem: Element): void {
+  openElemFeedback(elem: Element, coords: {x: number, y: number}): void {
     this.setState({
-      feedbackElement: elem
+      feedbackElement: elem,
+      coords: coords
     });
     this.modal.open(null);
   }
 
   openPageFeedback(): void {
     this.setState({
-      feedbackElement: window
+      feedbackElement: window,
+      coords: this.WINDOW_FEEDBACK_COORDS
     });
     this.modal.open(null);
   }
@@ -60,6 +72,8 @@ export class FeedbackModal extends PublisherComponent {
     e.preventDefault(); // Don't let the form perform it's default submit action
     this.modal.close(null);
     feedback.element = this.state.feedbackElement;
+    feedback.coords = this.state.coords;
+    feedback.created = Date.now();
     this.publish('FEEDBACK_SUBMITTED', feedback);
   }
 
@@ -114,7 +128,7 @@ class FeedbackForm extends Component<{ onSubmit: Function, elem: Element }, Feed
       <form class="feedback-form" onSubmit={e => onSubmit(e, this.state)}>
         <label for="title">Title:</label>
         <br />
-        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} autofocus/>
         <br />
         <label for="feedback">What is your feedback?</label>
         <br />

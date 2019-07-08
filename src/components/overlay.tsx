@@ -6,7 +6,7 @@ import { PublisherComponent, Subscribe } from '../management/registry';
  * button in the top right. This component is used for a variety of other
  * components.
  */
-export class Overlay extends PublisherComponent {
+export class Overlay extends PublisherComponent<any, any> {
 
   constructor(props) {
     super(props);

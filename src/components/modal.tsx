@@ -6,7 +6,7 @@ import { PublisherComponent } from '../management/registry';
  * pop-up that floats in front of the screen. Modals usually contain alerts
  * or forms (in this case, they will mostly contain forms.)
  */
-export class Modal extends PublisherComponent {
+export class Modal extends PublisherComponent<any, any> {
   constructor(props) {
     super(props);
 

@@ -1,0 +1,19 @@
+/**
+ * Common set of variables used across style sheets
+ * 
+ * @author Donald Isaac
+ */
+
+ /*
+  * Primary widget color, used for most icons and fonts
+  */
+ $primary: #25e437;
+
+ /*
+  * Colors for varying issue severities
+  */
+ $severity: (
+	 "low": $primary,
+	 "mid": rgb(255, 238, 0),
+	 "high": #f00
+ )

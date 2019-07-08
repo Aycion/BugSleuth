@@ -38,15 +38,6 @@ export class CentralRegistry {
   }
 
   /**
-   * Get a reference to a service.
-   *
-   * @param key the key the service is provided under
-   */
-  service(key: string): Service {
-    return this.services.get(key);
-  }
-
-  /**
    * Adds a new `Subscription` to the specified event.
    *
    * @param event         The Event to register to
@@ -92,10 +83,10 @@ export class CentralRegistry {
    * @param args          Arguments to send to the `Subscription`'s callback
    *                      function
    */
-  notify(publisher: PublisherComponent | Window | Document, event: string, ...args: any[]): void {
+  notify(publisher: PublisherComponent<any, any> | Window | Document, event: string, ...args: any[]): void {
     /* TODO: This jawn gets mangled by webpack, so constructor.name is kinda useless */
     window._tracker.logger.info(`REGISTRY: event ${event} was published \
-    with ${args && args[0].length ? `args: ${JSON.stringify(args)}` : 'no args'}`);
+    with ${args && args[0].length ? `args: ${args}` : 'no args'}`);
     /* Get list of subscribers to this event */
     let subscriptions = this.subscriptions.get(event);
     if (!subscriptions) return;
@@ -117,13 +108,17 @@ export class CentralRegistry {
     return this.services.get(key);
   }
 
+  setService(key: string): void {
+    // todo
+  }
+
 }
 
 /**
  * Parent class for all widget Components. Contains logic for interacting with
  * the CentralRepository.
  */
-export abstract class PublisherComponent extends Component<any, any> {
+export abstract class PublisherComponent<P, S> extends Component<P, S> {
 
   private events: string[];
 

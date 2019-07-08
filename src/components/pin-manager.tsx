@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
 
 /**
@@ -14,53 +14,60 @@ import { h } from 'preact';
 import { PublisherComponent } from '../management/registry';
 import { FeedbackDTO } from './feedback-modal';
 
-export class PinManager extends PublisherComponent {
+export class PinManager extends PublisherComponent<any, any> {
   constructor(props) {
     super(props);
 
     this.setState({
-      pins: []
+      pins: [] as FeedbackDTO[],
+      parent: props.parent as HTMLElement
     });
 
-    this.getNewFeedback = this.getNewFeedback.bind(this);
     this.addPin = this.addPin.bind(this);
-    this.subscribe('FEEDBACK_SUBMITTED', this.getNewFeedback);
+    this.render = this.render.bind(this);
+
+    this.subscribe('FEEDBACK_SUBMITTED', this.addPin);
   }
 
-  getNewFeedback(feedback: FeedbackDTO) {
-    console.log('feedback received in PinManager');
-    console.dir(feedback);
+  addPin(feedback: FeedbackDTO): void {
+    this.state.pins.push(feedback);
+    this.forceUpdate();
   }
 
-  addPin(elem: Element, pos: {x: Number, y: Number}): void {
-    let id = `bs-pin-${Date.now().toString()}`;
-    let pin = <Pin id={id} top={pos.y} right={pos.x} elem={elem}/>;
-
-    this.setState({
-      pins: this.state.pins.push(pin)
-    });
-  }
-
-  render({ }, { }, context?: any) {
+  render({ parent }, { pins }, context?: any) {
     return (<div class="bs-pin-manager">
-
+      {pins.map(pin => <Pin parent={parent} feedback={pin} />)}
     </div>);
   }
 }
 
-export class Pin extends PublisherComponent {
+export class Pin extends Component<{ parent: HTMLElement, feedback: FeedbackDTO} , any> {
 
   constructor(props) {
     super(props);
 
-    this.setState({
-      elem: props.elem
-    });
+    this.render = this.render.bind(this);
   }
 
-  render ({ id, top, right }, { }) {
+  componentWillUpdate() {
+    console.log(this.base);
+  }
+
+  render ({ parent, feedback }, { }) {
+    let parentRect = parent.getBoundingClientRect();
+    let base = this.base;
+    let pinHeight = this.base ? this.base.clientHeight : 32;
+    let pinMid = this.base ? this.base.clientWidth / 2 : 12;
+    let styles = {
+      top: `${feedback.coords.y - parentRect.top - pinHeight}px`,
+      left: `${feedback.coords.x - parentRect.left}px`
+    };
+
     return (
-      <span id={id} class="bs-pin fa fa-map-marker-alt" style={`top: ${top}; right: ${right}`}></span>
+      <span id={`bs-pin-${feedback.created}`}
+      class="bs-pin fa fa-map-marker-alt"
+      style={styles}
+      ></span>
     );
   }
 }
