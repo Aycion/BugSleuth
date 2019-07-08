@@ -6,6 +6,11 @@ import * as JiraClient from 'jira-connector';
 export default class JiraAdapter implements Adapter {
 
   public key: string = 'ADAPTER';
+  private connector: JiraClient;
+
+  constructor() {
+    this.connector = null;
+  }
 
   onInit() {
     /* TODO */
